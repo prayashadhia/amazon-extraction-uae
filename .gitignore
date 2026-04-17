@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+npm-debug.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Chrome extension build artifacts
+*.zip
+*.crx
+
+# Extension build output (future)
+dist/
+build/
+
+# Logs
+*.log
+
+# Misc
+.env
+.env.local
+
+# Test run outputs (Excel exports, console logs, sample HTML)
+run_results/
+
+# Claude Code internal files (memory, plans, session data)
+.claude/
+
+# Internal project docs (not for public repo)
+CLAUDE.md
+KICKOFF_PROMPT.md
+ARCHITECTURE.md
+RECON.md
+AMAZON_NOW_API_RESPONSES.json

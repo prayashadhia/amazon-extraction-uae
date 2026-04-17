@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amazon Order Exporter</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────────────── -->
+  <header class="header">
+    <h1 class="header-title">Amazon Order Exporter</h1>
+    <p class="header-subtitle">amazon.ae</p>
+  </header>
+
+  <!-- ── Status area ────────────────────────────────────── -->
+  <div id="status-area" class="status-area">
+    <span id="status-icon" class="status-icon status-idle">●</span>
+    <span id="status-text" class="status-text">Ready to export</span>
+  </div>
+
+  <!-- ── Progress bar ───────────────────────────────────── -->
+  <div id="progress-bar-wrap" class="progress-bar-wrap" hidden>
+    <div id="progress-bar" class="progress-bar"></div>
+  </div>
+
+  <!-- ── Progress label ─────────────────────────────────── -->
+  <p id="progress-label" class="progress-label" hidden></p>
+
+  <!-- ── Action buttons ─────────────────────────────────── -->
+  <button id="btn-export" class="btn btn-export">Export to Excel</button>
+  <button id="btn-cancel" class="btn btn-cancel" hidden>Cancel</button>
+
+  <!-- ── Result area (shown on success) ─────────────────── -->
+  <div id="result-area" class="result-area" hidden>
+    <p id="result-summary" class="result-summary"></p>
+    <p id="result-filename" class="result-filename"></p>
+  </div>
+
+  <!-- ── Error area (shown on failure) ──────────────────── -->
+  <div id="error-area" class="error-area" hidden>
+    <p id="error-message" class="error-message"></p>
+  </div>
+
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer class="footer">
+    <p>Opens on your Amazon.ae orders page</p>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
