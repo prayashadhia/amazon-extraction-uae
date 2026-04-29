@@ -46,7 +46,8 @@
         "agents/agent1-recon.js",
         "agents/agent2-strategy.js",
         "agents/agent3-executor.js",
-        "agents/agent4-validator.js"
+        "agents/agent4-validator.js",
+        "classifiers/category-classifier.js"
       ],
       "matches": ["https://www.amazon.ae/*"]
     }

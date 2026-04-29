@@ -58,7 +58,8 @@ const DEP_SCRIPTS = [
   'extractors/quantity.js',
   'extractors/payment-method.js',
   'extractors/shipment-status.js',
-  'extractors/seller.js'
+  'extractors/seller.js',
+  'classifiers/category-classifier.js'
 ];
 
 const AGENT1 = 'agents/agent1-recon.js';

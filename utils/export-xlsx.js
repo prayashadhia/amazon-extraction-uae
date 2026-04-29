@@ -36,6 +36,7 @@ const ORDERS_HEADERS = [
   'Order ID',
   'Order Date',
   'Item Description',
+  'Category',
   'Pack Size',
   'Quantity',
   'Unit Price',
@@ -55,6 +56,7 @@ const ORDERS_COL_WIDTHS = [
   { wch: 22 }, // Order ID
   { wch: 15 }, // Order Date
   { wch: 50 }, // Item Description
+  { wch: 22 }, // Category
   { wch: 12 }, // Pack Size
   { wch: 10 }, // Quantity
   { wch: 12 }, // Unit Price
@@ -146,6 +148,7 @@ function buildOrdersSheet(rows) {
       r.orderId           ?? '',
       r.orderDate         ?? '',
       r.itemDescription   ?? '',
+      r.category          ?? 'Others',
       r.packSize          ?? '',
       r.quantity          ?? '',
       r.unitPrice         ?? '',   // kept as number for Excel maths

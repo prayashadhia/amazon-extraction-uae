@@ -122,6 +122,7 @@ async function runExecutor(routedOrder, regionConfig) {
       orderId:         routedOrder.orderId,
       orderDate:       routedOrder.orderDate || '',
       itemDescription: '(Order cancelled)',
+      category:        'Others',
       packSize:        '',
       quantity:        0,
       unitPrice:       0,
@@ -161,10 +162,12 @@ async function runExecutor(routedOrder, regionConfig) {
    * @returns {Object} A unified item row
    */
   function mapApiItemToRow(apiItem, orderMeta) {
+    const desc = apiItem.title || '';
     return {
       orderId:         orderMeta.orderId,
       orderDate:       orderMeta.orderDate,
-      itemDescription: apiItem.title    || '',
+      itemDescription: desc,
+      category:        window.AmazonExporter.classifyCategory(desc),
       packSize:        apiItem.packSize  || '',
       quantity:        apiItem.quantity  || 1,
       unitPrice:       apiItem.unitPrice || 0,
@@ -356,6 +359,7 @@ async function runExecutor(routedOrder, regionConfig) {
           orderId:         orderId,
           orderDate:       orderDate,
           itemDescription: itemDescription,
+          category:        window.AmazonExporter.classifyCategory(itemDescription),
           packSize:        '',   // Not available on print pages
           quantity:        quantity,
           unitPrice:       prices.unitPrice  || 0,
@@ -517,6 +521,7 @@ async function runExecutor(routedOrder, regionConfig) {
           orderId:         orderId,
           orderDate:       orderDate,
           itemDescription: itemDescription,
+          category:        window.AmazonExporter.classifyCategory(itemDescription),
           packSize:        '',   // Not available on Lulu pages
           quantity:        quantity,
           unitPrice:       unitPrice,
