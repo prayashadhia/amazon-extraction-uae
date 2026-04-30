@@ -185,19 +185,71 @@ function buildSummarySheet(rows, today) {
   const { earliest, latest } = getDateRange(rows);
   const dateRangeStr = earliest === 'N/A' ? 'N/A' : `${earliest} – ${latest}`;
 
+  // ── Category breakdown tables ─────────────────────────────────────────────
+  const CATEGORIES = [
+    'Baby', 'Grocery Essentials', 'Foods & Beverages',
+    'Electronics', 'Fashion', 'Books', 'Household', 'Others'
+  ];
+
+  const countRows = [];
+  const valueRows = [];
+  let totDelivCount = 0, totRetCount = 0, totCount = 0;
+  let totDelivVal   = 0, totRetVal   = 0, totVal   = 0;
+
+  for (const cat of CATEGORIES) {
+    const catItems     = rows.filter((r) => (r.category || 'Others') === cat);
+    const delivItems   = catItems.filter((r) => /^delivered$/i.test(r.shipmentStatus || ''));
+    const retItems     = catItems.filter((r) => /return|refund/i.test(r.shipmentStatus || ''));
+
+    const delivCount   = delivItems.length;
+    const retCount     = retItems.length;
+    const catCount     = catItems.length;
+
+    const delivVal     = delivItems.reduce((s, r) => s + (r.lineTotal || 0), 0);
+    const retVal       = retItems.reduce((s,  r) => s + (r.lineTotal || 0), 0);
+    const catVal       = catItems.reduce((s,  r) => s + (r.lineTotal || 0), 0);
+
+    countRows.push([cat, delivCount, retCount, catCount]);
+    valueRows.push([cat,
+      parseFloat(delivVal.toFixed(2)),
+      parseFloat(retVal.toFixed(2)),
+      parseFloat(catVal.toFixed(2)),
+    ]);
+
+    totDelivCount += delivCount;  totRetCount += retCount;  totCount += catCount;
+    totDelivVal   += delivVal;    totRetVal   += retVal;    totVal   += catVal;
+  }
+
+  countRows.push(['Total', totDelivCount, totRetCount, totCount]);
+  valueRows.push(['Total',
+    parseFloat(totDelivVal.toFixed(2)),
+    parseFloat(totRetVal.toFixed(2)),
+    parseFloat(totVal.toFixed(2)),
+  ]);
+
+  // ── Assemble sheet data ───────────────────────────────────────────────────
   const data = [
-    ['Metric',        'Value'],                          // header row
-    ['Total Orders',  totalOrders],
-    ['Total Items',   totalItems],
-    ['Date Range',    dateRangeStr],
-    ['Region',        'Amazon.ae'],
-    ['Scrape Date',   formatDateLong(today)],
+    ['Metric',       'Value'],
+    ['Total Orders', totalOrders],
+    ['Total Items',  totalItems],
+    ['Date Range',   dateRangeStr],
+    ['Region',       'Amazon.ae'],
+    ['Scrape Date',  formatDateLong(today)],
+    [],
+    [],
+    ['Items by Category'],
+    ['Category', 'Delivered', 'Returned', 'Total'],
+    ...countRows,
+    [],
+    [],
+    ['Value by Category (AED)'],
+    ['Category', 'Delivered (AED)', 'Returned (AED)', 'Total (AED)'],
+    ...valueRows,
   ];
 
   const ws = XLSX.utils.aoa_to_sheet(data);
 
-  // Give the two columns a sensible width.
-  ws['!cols'] = [{ wch: 18 }, { wch: 50 }];
+  ws['!cols'] = [{ wch: 22 }, { wch: 18 }, { wch: 16 }, { wch: 14 }];
 
   return ws;
 }
