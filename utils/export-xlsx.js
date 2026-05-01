@@ -187,7 +187,7 @@ function buildSummarySheet(rows, today) {
 
   // ── Category breakdown tables ─────────────────────────────────────────────
   const CATEGORIES = [
-    'Baby', 'Grocery Essentials', 'Foods & Beverages',
+    'Baby', 'Personal Care', 'Grocery Essentials', 'Foods & Beverages',
     'Electronics', 'Fashion', 'Books', 'Household', 'Others'
   ];
 
